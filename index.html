@@ -7,7 +7,7 @@
 <title>Собери свой визит — GOOD MASTER (демо)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;700&family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --paper: #f6efe9;
@@ -47,9 +47,10 @@
   .masthead { max-width: 1040px; margin: 0 auto; padding: 36px 20px 8px; text-align: center; }
   .mark-top { font-size: 12px; letter-spacing: .34em; text-transform: uppercase; color: var(--muted); }
   .mark {
-    font-family: var(--serif); font-weight: 700; font-size: clamp(44px, 9vw, 92px);
-    line-height: .95; letter-spacing: .02em; margin: 10px 0 6px; color: var(--ink);
+    font-family: "Bodoni Moda", "Didot", Georgia, serif; font-weight: 500; text-transform: uppercase;
+    font-size: clamp(42px, 9vw, 84px); line-height: .98; letter-spacing: .06em; margin: 14px 0 6px; color: var(--ink);
   }
+  .mark .m2 { display: block; letter-spacing: .14em; }
   .mark span { color: var(--wine); }
   .rule { display: flex; align-items: center; gap: 12px; justify-content: center; color: var(--gold); font-size: 13px; letter-spacing: .2em; }
   .rule::before, .rule::after { content: ""; height: 1px; width: 56px; background: var(--gold); opacity: .6; }
@@ -168,7 +169,7 @@
 
 <header class="masthead">
   <div class="mark-top">Перманентный макияж · Ресницы · Маникюр · Педикюр</div>
-  <div class="mark">GOOD <span>MASTER</span></div>
+  <div class="mark">GOOD<span class="m2">MASTER</span></div>
   <div class="rule">Петрозаводск</div>
   <h1 class="title">Соберите свой визит</h1>
   <p class="lead">Отметьте услуги, сразу увидите сумму и отправьте готовую заявку мастеру.</p>
