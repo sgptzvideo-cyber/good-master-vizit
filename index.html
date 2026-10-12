@@ -5,143 +5,217 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Собери свой визит — GOOD MASTER (демо)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf6f4;
-    --card: #ffffff;
-    --ink: #2a1f1f;
-    --muted: #7a6a6a;
-    --accent: #9b2c3d;
-    --accent-soft: #f4e3e6;
-    --line: #eadfdc;
+    --paper: #f6efe9;
+    --paper-2: #efe4dc;
+    --card: #fffaf7;
+    --ink: #2a1d1f;
+    --muted: #7d6a6c;
+    --wine: #7f1d33;
+    --wine-soft: #f1dfe3;
+    --gold: #b8925a;
+    --line: #e4d6cd;
+    --shadow: 0 18px 40px -22px rgba(60, 20, 30, .35);
+    --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --sans: "Manrope", -apple-system, "Segoe UI", Roboto, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #1d1617; --card: #271e20; --ink: #f5ecea; --muted: #b1a0a0;
-      --accent: #e0788a; --accent-soft: #3a2a2d; --line: #3d3032;
+      --paper: #1c1416; --paper-2: #241a1d; --card: #2a1f22; --ink: #f6ece8; --muted: #b3a09f;
+      --wine: #e0788e; --wine-soft: #3a2429; --gold: #d6b07a; --line: #3d2e32; --shadow: none;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #1d1617; --card: #271e20; --ink: #f5ecea; --muted: #b1a0a0;
-    --accent: #e0788a; --accent-soft: #3a2a2d; --line: #3d3032;
+    --paper: #1c1416; --paper-2: #241a1d; --card: #2a1f22; --ink: #f6ece8; --muted: #b3a09f;
+    --wine: #e0788e; --wine-soft: #3a2429; --gold: #d6b07a; --line: #3d2e32; --shadow: none;
   }
   * { box-sizing: border-box; }
+  html, body { background: var(--paper); }
   body {
-    margin: 0; background: var(--bg); color: var(--ink);
-    font: 16px/1.5 -apple-system, "Segoe UI", Roboto, sans-serif;
+    margin: 0; color: var(--ink); font: 16px/1.5 var(--sans);
+    background:
+      radial-gradient(1200px 500px at 85% -10%, var(--wine-soft), transparent 60%),
+      var(--paper);
+    min-height: 100vh;
   }
-  .wrap { max-width: 560px; margin: 0 auto; padding: 24px 16px 120px; }
-  .brand { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-  h1 { font-size: 30px; line-height: 1.15; margin: 8px 0 8px; font-weight: 700; }
-  .lead { color: var(--muted); margin: 0 0 20px; }
-  .steps { display: flex; gap: 8px; margin-bottom: 20px; font-size: 13px; color: var(--muted); }
-  .steps span { flex: 1; text-align: center; padding: 6px 4px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); }
-  .steps span.on { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
-  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 24px 0 8px; }
-  .item {
-    display: flex; align-items: center; gap: 12px; padding: 14px 16px; margin-bottom: 8px;
-    background: var(--card); border: 1px solid var(--line); border-radius: 14px; cursor: pointer;
-    transition: border-color .2s, background .2s, transform .15s;
+
+  /* Шапка с типографской маркой */
+  .masthead { max-width: 1040px; margin: 0 auto; padding: 36px 20px 8px; text-align: center; }
+  .mark-top { font-size: 12px; letter-spacing: .34em; text-transform: uppercase; color: var(--muted); }
+  .mark {
+    font-family: var(--serif); font-weight: 700; font-size: clamp(44px, 9vw, 92px);
+    line-height: .95; letter-spacing: .02em; margin: 10px 0 6px; color: var(--ink);
   }
-  .item:active { transform: scale(.99); }
-  .item input { width: 20px; height: 20px; accent-color: var(--accent); flex: none; }
-  .item.on { border-color: var(--accent); background: var(--accent-soft); }
-  .item .name { flex: 1; }
-  .item .price { font-weight: 600; white-space: nowrap; }
-  .item .price small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
-  .note { font-size: 13px; color: var(--muted); margin-top: 6px; }
-  .bar {
-    position: fixed; left: 0; right: 0; bottom: 0; background: var(--card);
-    border-top: 1px solid var(--line); padding: 12px 16px; box-shadow: 0 -8px 24px rgba(0,0,0,.06);
+  .mark span { color: var(--wine); }
+  .rule { display: flex; align-items: center; gap: 12px; justify-content: center; color: var(--gold); font-size: 13px; letter-spacing: .2em; }
+  .rule::before, .rule::after { content: ""; height: 1px; width: 56px; background: var(--gold); opacity: .6; }
+  .title { font-family: var(--serif); font-size: clamp(26px, 4vw, 34px); margin: 22px 0 6px; font-weight: 600; }
+  .lead { color: var(--muted); margin: 0 auto; max-width: 480px; }
+
+  /* Раскладка: услуги + чек */
+  .layout { max-width: 1040px; margin: 0 auto; padding: 24px 20px 150px; display: grid; gap: 28px; grid-template-columns: 1fr; }
+  @media (min-width: 900px) {
+    .layout { grid-template-columns: 1fr 360px; align-items: start; padding-bottom: 60px; }
+    .receipt-wrap { position: sticky; top: 24px; }
   }
-  .bar-inner { max-width: 560px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
-  .total { flex: 1; }
-  .total .sum { font-size: 22px; font-weight: 700; }
-  .total .hint { font-size: 12px; color: var(--muted); }
-  button.main {
-    background: var(--accent); color: #fff; border: 0; border-radius: 12px;
-    padding: 14px 18px; font: inherit; font-weight: 600; cursor: pointer;
+
+  .group { margin-bottom: 26px; }
+  .group h2 {
+    display: flex; align-items: baseline; gap: 12px; margin: 0 0 10px;
+    font-family: var(--serif); font-size: 26px; font-weight: 600;
   }
-  button.main:disabled { opacity: .4; cursor: default; }
-  .panel {
-    margin-top: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px;
+  .group h2 em { font-style: normal; font-size: 13px; font-family: var(--sans); letter-spacing: .18em; color: var(--gold); }
+
+  .svc {
+    display: grid; grid-template-columns: 24px 1fr auto; gap: 14px; align-items: center;
+    padding: 16px 18px; margin-bottom: 10px; background: var(--card);
+    border: 1px solid var(--line); border-radius: 18px; cursor: pointer; user-select: none;
+    transition: transform .18s ease, border-color .2s, box-shadow .2s, background .2s;
   }
-  .panel h3 { margin: 0 0 8px; font-size: 17px; }
-  .panel pre {
-    white-space: pre-wrap; margin: 8px 0 12px; font: inherit; font-size: 14px;
-    background: var(--bg); border-radius: 10px; padding: 12px;
+  .svc:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+  .svc input { position: absolute; opacity: 0; pointer-events: none; }
+  .tick {
+    width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--gold);
+    display: grid; place-items: center; transition: background .2s, border-color .2s;
   }
-  .ghost {
-    background: transparent; color: var(--accent); border: 1px solid var(--accent);
-    border-radius: 12px; padding: 12px 16px; font: inherit; cursor: pointer; width: 100%;
+  .tick::after {
+    content: ""; width: 10px; height: 6px; border-left: 2px solid #fff; border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) scale(0); transition: transform .25s cubic-bezier(.2,.9,.3,1.3);
   }
-  .benefit { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
-  .benefit div { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; font-size: 14px; color: var(--muted); }
-  .benefit b { display: block; font-size: 20px; color: var(--ink); }
-  .footer-note { margin-top: 28px; font-size: 12px; color: var(--muted); text-align: center; }
+  .svc.on { border-color: var(--wine); background: var(--wine-soft); }
+  .svc.on .tick { background: var(--wine); border-color: var(--wine); }
+  .svc.on .tick::after { transform: rotate(-45deg) scale(1); }
+  .svc .name { font-weight: 600; }
+  .svc .desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .svc .price { font-family: var(--serif); font-size: 20px; font-weight: 600; white-space: nowrap; }
+  .svc .price small { display: block; font-family: var(--sans); font-size: 11px; color: var(--muted); font-weight: 500; text-align: right; }
+
+  .combo {
+    margin-top: 6px; padding: 14px 18px; border-radius: 18px; border: 1px dashed var(--gold);
+    font-size: 13px; color: var(--muted);
+  }
+
+  /* Чек */
+  .receipt {
+    background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 24px 22px;
+    box-shadow: var(--shadow); position: relative;
+  }
+  .receipt::before, .receipt::after {
+    content: ""; position: absolute; left: 0; right: 0; height: 10px;
+    background: radial-gradient(circle at 10px 0, var(--paper) 7px, transparent 7.5px) repeat-x;
+    background-size: 20px 10px;
+  }
+  .receipt::before { top: -5px; transform: rotate(180deg); }
+  .receipt::after { bottom: -5px; }
+  .receipt h3 { margin: 0 0 4px; font-family: var(--serif); font-size: 24px; font-weight: 600; }
+  .receipt .sub { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .lines { list-style: none; padding: 0; margin: 0; min-height: 60px; }
+  .lines li {
+    display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; font-size: 14px;
+    border-bottom: 1px dotted var(--line); animation: drop .32s ease both;
+  }
+  .lines li span:last-child { white-space: nowrap; font-weight: 600; }
+  .empty { color: var(--muted); font-size: 14px; padding: 10px 0; }
+  .sum-row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 16px; }
+  .sum-row b { font-family: var(--serif); font-size: 36px; font-weight: 700; color: var(--wine); }
+  .sum-row span { font-size: 13px; color: var(--muted); }
+  .cta {
+    width: 100%; margin-top: 18px; padding: 15px 18px; border: 0; border-radius: 14px;
+    background: var(--wine); color: #fff; font: 600 16px var(--sans); cursor: pointer;
+    transition: opacity .2s, transform .15s;
+  }
+  .cta:active { transform: scale(.99); }
+  .cta:disabled { opacity: .35; cursor: default; }
+  .cta.ghost { background: transparent; color: var(--wine); border: 1px solid var(--wine); margin-top: 10px; }
+
+  .msg {
+    margin-top: 16px; background: var(--paper-2); border-radius: 14px; padding: 14px;
+    white-space: pre-wrap; font-size: 14px; display: none;
+  }
+  .msg.show { display: block; animation: drop .3s ease both; }
+
+  .note { margin-top: 18px; font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  .foot { max-width: 1040px; margin: 0 auto; padding: 0 20px 40px; text-align: center; font-size: 12px; color: var(--muted); }
+
   .toast {
-    position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); background: var(--ink); color: var(--bg);
-    padding: 10px 16px; border-radius: 10px; font-size: 14px; opacity: 0; transition: opacity .25s; pointer-events: none;
+    position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); background: var(--ink); color: var(--paper);
+    padding: 11px 18px; border-radius: 12px; font-size: 14px; opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none;
   }
-  .toast.show { opacity: 1; }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* Мобильная нижняя панель */
+  .dock {
+    position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 5;
+    background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 12px 14px;
+    box-shadow: var(--shadow); display: flex; align-items: center; gap: 12px;
+  }
+  .dock .total { flex: 1; }
+  .dock .total b { display: block; font-family: var(--serif); font-size: 24px; color: var(--wine); line-height: 1.1; }
+  .dock .total span { font-size: 12px; color: var(--muted); }
+  .dock .cta { width: auto; margin: 0; padding: 12px 16px; }
+  @media (min-width: 900px) { .dock { display: none; } }
+
+  @keyframes drop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="brand">GOOD MASTER · Петрозаводск</div>
-  <h1>Собери свой визит</h1>
-  <p class="lead">Отметьте услуги — сразу увидите сумму и сможете отправить мастеру готовую заявку.</p>
 
-  <div class="steps">
-    <span class="on">1. Услуги</span><span>2. Сумма</span><span>3. Заявка</span>
-  </div>
+<header class="masthead">
+  <div class="mark-top">Перманентный макияж · Ресницы · Маникюр · Педикюр</div>
+  <div class="mark">GOOD <span>MASTER</span></div>
+  <div class="rule">Петрозаводск</div>
+  <h1 class="title">Соберите свой визит</h1>
+  <p class="lead">Отметьте услуги, сразу увидите сумму и отправьте готовую заявку мастеру.</p>
+</header>
 
-  <div id="list"></div>
+<main class="layout">
+  <section id="list"></section>
 
-  <div class="panel" id="result" hidden>
-    <h3>Ваша заявка</h3>
-    <div class="note">Скопируйте текст и отправьте в личные сообщения студии или администратору.</div>
-    <pre id="msg"></pre>
-    <button class="ghost" id="copy">Скопировать заявку</button>
-    <div class="note" style="margin-top:12px">Демо не отправляет заявку само. В полной версии здесь будет кнопка «Записаться с этим набором» с выбором времени.</div>
-  </div>
-
-  <div class="benefit">
-    <div>Вопрос «сколько стоит?» в личке<b>не нужен</b>сумма уже видна в заявке</div>
-    <div>Заявка уходит одним сообщением<b>услуги + сумма</b>мастер сразу понимает запрос</div>
-  </div>
-
-  <div class="footer-note">Демо-концепт. Цены взяты из группы ВКонтакте на 12.10.2026, свободное время и мастера условные.</div>
-</div>
-
-<div class="bar">
-  <div class="bar-inner">
-    <div class="total">
-      <div class="sum" id="sum">0 ₽</div>
-      <div class="hint" id="hint">выберите хотя бы одну услугу</div>
+  <aside class="receipt-wrap">
+    <div class="receipt">
+      <h3>Ваш визит</h3>
+      <div class="sub">предварительный расчёт</div>
+      <ul class="lines" id="lines"></ul>
+      <div class="sum-row"><span id="hint">выберите услуги</span><b id="sum">0 ₽</b></div>
+      <button class="cta" id="go" disabled>Собрать заявку</button>
+      <div class="msg" id="msg"></div>
+      <button class="cta ghost" id="copy" style="display:none">Скопировать заявку</button>
+      <div class="note">Демо: заявка не отправляется. В полной версии здесь выбор времени и мастера, сразу в расписание.</div>
     </div>
-    <button class="main" id="go" disabled>Собрать заявку</button>
-  </div>
+  </aside>
+</main>
+
+<div class="dock" id="dock">
+  <div class="total"><b id="dock-sum">0 ₽</b><span id="dock-hint">выберите услуги</span></div>
+  <button class="cta" id="dock-go" disabled>Заявка</button>
 </div>
-<div class="toast" id="toast">Заявка скопирована</div>
+
+<footer class="foot">Демо-концепт. Цены из группы ВКонтакте на 12.10.2026. Мастера и свободное время условные.</footer>
+<div class="toast" id="toast"></div>
 
 <script>
   const GROUPS = [
     { title: "Брови", items: [
-      { id: "perm",  name: "Перманентный макияж", price: 7000 },
+      { id: "perm",   name: "Перманентный макияж", price: 7000, desc: "Индивидуальный подбор формы и цвета" },
       { id: "brow_l", name: "Долговременная укладка бровей", price: 2100 },
-      { id: "brow_c", name: "Окрашивание бровей (краска / хна)", price: 1600, from: true },
+      { id: "brow_c", name: "Окрашивание бровей", desc: "краска или хна", price: 1600, from: true },
     ]},
     { title: "Ресницы", items: [
       { id: "lash_e", name: "Наращивание ресниц", price: 1600, from: true },
       { id: "lash_l", name: "Ламинирование ресниц", price: 2100 },
-      { id: "combo",  name: "Комплекс БРОВИ + РЕСНИЦЫ", price: 3900, note: "состав уточнит администратор; не выбирайте вместе с отдельными бровями и ресницами" },
+      { id: "combo",  name: "Комплекс БРОВИ + РЕСНИЦЫ", price: 3900, combo: true, desc: "состав уточнит администратор" },
     ]},
     { title: "Маникюр", items: [
-      { id: "m_raw",  name: "Маникюр без покрытия", price: 1100, from: true },
-      { id: "m_fr",   name: "Маникюр + френч (укрепление / ремонт)", price: 2800, from: true },
-      { id: "m_gel",  name: "Гель-лак однотон (всё включено)", price: 2200, from: true },
-      { id: "m_spa",  name: "Японский SPA-маникюр", price: 2200 },
+      { id: "m_raw", name: "Маникюр без покрытия", price: 1100, from: true },
+      { id: "m_fr",  name: "Маникюр + френч", desc: "с укреплением или ремонтом", price: 2800, from: true },
+      { id: "m_gel", name: "Гель-лак однотон", desc: "всё включено", price: 2200, from: true },
+      { id: "m_spa", name: "Японский SPA-маникюр", price: 2200 },
     ]},
     { title: "Педикюр", items: [
       { id: "p_smart", name: "Педикюр SMART", price: 2000, from: true },
@@ -152,43 +226,57 @@
   const ALL = GROUPS.flatMap(g => g.items);
   const selected = new Set();
   const fmt = n => n.toLocaleString("ru-RU") + " ₽";
+  const $ = id => document.getElementById(id);
 
-  function render() {
-    const list = document.getElementById("list");
+  function renderList() {
+    const list = $("list");
     list.innerHTML = "";
-    GROUPS.forEach(g => {
-      const h = document.createElement("h2");
-      h.textContent = g.title;
-      list.appendChild(h);
+    GROUPS.forEach((g, gi) => {
+      const sec = document.createElement("div");
+      sec.className = "group";
+      sec.innerHTML = "<h2>" + g.title + "<em>0" + (gi + 1) + "</em></h2>";
       g.items.forEach(it => {
         const row = document.createElement("label");
-        row.className = "item" + (selected.has(it.id) ? " on" : "");
-        const priceText = it.range ? it.range : (it.from ? "от " + fmt(it.price) : fmt(it.price));
+        row.className = "svc" + (selected.has(it.id) ? " on" : "");
+        const priceText = it.range || (it.from ? "от " + fmt(it.price) : fmt(it.price));
         row.innerHTML =
           '<input type="checkbox" ' + (selected.has(it.id) ? "checked" : "") + ">" +
-          '<div class="name">' + it.name + (it.note ? '<div class="note">' + it.note + "</div>" : "") + "</div>" +
+          '<span class="tick"></span>' +
+          '<div><div class="name">' + it.name + "</div>" + (it.desc ? '<div class="desc">' + it.desc + "</div>" : "") + "</div>" +
           '<div class="price">' + priceText + "</div>";
         row.querySelector("input").addEventListener("change", e => {
           e.target.checked ? selected.add(it.id) : selected.delete(it.id);
-          update();
-          render();
+          renderAll();
         });
-        list.appendChild(row);
+        sec.appendChild(row);
       });
+      list.appendChild(sec);
     });
   }
 
-  function update() {
+  function renderReceipt() {
     const chosen = ALL.filter(it => selected.has(it.id));
     const total = chosen.reduce((s, it) => s + it.price, 0);
     const anyFrom = chosen.some(it => it.from || it.range);
-    document.getElementById("sum").textContent = (anyFrom ? "от " : "") + fmt(total);
-    document.getElementById("hint").textContent = chosen.length
-      ? chosen.length + " " + (chosen.length === 1 ? "услуга" : "услуги") + (anyFrom ? ". Точная цена — после осмотра мастера" : "")
-      : "выберите хотя бы одну услугу";
-    document.getElementById("go").disabled = chosen.length === 0;
-    document.getElementById("result").hidden = true;
+    const lines = $("lines");
+    lines.innerHTML = chosen.length
+      ? chosen.map(it => '<li><span>' + it.name + '</span><span>' + (it.range || (it.from ? "от " : "") + fmt(it.price)) + "</span></li>").join("")
+      : '<li class="empty" style="border:0">Пока ничего не выбрано</li>';
+    const text = (anyFrom && chosen.length ? "от " : "") + fmt(total);
+    $("sum").textContent = chosen.length ? text : "0 ₽";
+    $("dock-sum").textContent = chosen.length ? text : "0 ₽";
+    const hint = chosen.length
+      ? chosen.length + (chosen.length === 1 ? " услуга" : " услуги") + (anyFrom ? ", точная цена после осмотра" : "")
+      : "выберите услуги";
+    $("hint").textContent = hint;
+    $("dock-hint").textContent = hint;
+    $("go").disabled = chosen.length === 0;
+    $("dock-go").disabled = chosen.length === 0;
+    $("msg").classList.remove("show");
+    $("copy").style.display = "none";
   }
+
+  function renderAll() { renderList(); renderReceipt(); }
 
   function buildMessage() {
     const chosen = ALL.filter(it => selected.has(it.id));
@@ -201,19 +289,22 @@
   }
 
   function toast(text) {
-    const t = document.getElementById("toast");
+    const t = $("toast");
     t.textContent = text;
     t.classList.add("show");
     setTimeout(() => t.classList.remove("show"), 1800);
   }
 
-  document.getElementById("go").addEventListener("click", () => {
-    document.getElementById("msg").textContent = buildMessage();
-    document.getElementById("result").hidden = false;
-    document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+  function build() {
+    $("msg").textContent = buildMessage();
+    $("msg").classList.add("show");
+    $("copy").style.display = "block";
+    if (window.innerWidth >= 900) $("msg").scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  $("go").addEventListener("click", build);
+  $("dock-go").addEventListener("click", () => { build(); window.scrollTo({ top: 0, behavior: "smooth" }); });
 
-  document.getElementById("copy").addEventListener("click", async () => {
+  $("copy").addEventListener("click", async () => {
     const text = buildMessage();
     let ok = false;
     try {
@@ -227,11 +318,10 @@
       try { ok = document.execCommand("copy"); } catch (err) {}
       ta.remove();
     }
-    toast(ok ? "Заявка скопирована" : "Не получилось скопировать — выделите текст вручную");
+    toast(ok ? "Заявка скопирована" : "Не получилось скопировать, выделите текст вручную");
   });
 
-  render();
-  update();
+  renderAll();
 </script>
 </body>
 </html>
