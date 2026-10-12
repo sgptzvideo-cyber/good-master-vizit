@@ -172,7 +172,7 @@
   <div class="mark">GOOD<span class="m2">MASTER</span></div>
   <div class="rule">Петрозаводск</div>
   <h1 class="title">Соберите свой визит</h1>
-  <p class="lead">Отметьте услуги, сразу увидите сумму и отправьте готовую заявку мастеру.</p>
+  <p class="lead">Отметьте, что хотите сделать, и сразу увидите примерную сумму. Мастер подскажет удобное время.</p>
 </header>
 
 <main class="layout">
@@ -181,20 +181,21 @@
   <aside class="receipt-wrap">
     <div class="receipt">
       <h3>Ваш визит</h3>
-      <div class="sub">предварительный расчёт</div>
+      <div class="sub">примерная сумма</div>
       <ul class="lines" id="lines"></ul>
       <div class="sum-row"><span id="hint">выберите услуги</span><b id="sum">0 ₽</b></div>
-      <button class="cta" id="go" disabled>Собрать заявку</button>
+      <button class="cta" id="go" disabled>Отправить мастеру</button>
+      <button class="cta ghost" id="save" disabled>Сохранить выбор</button>
       <div class="msg" id="msg"></div>
-      <button class="cta ghost" id="copy" style="display:none">Скопировать заявку</button>
-      <div class="note">Демо: заявка не отправляется. В полной версии здесь выбор времени и мастера, сразу в расписание.</div>
+      <button class="cta ghost" id="copy" style="display:none">Скопировать текст</button>
+      <div class="note">Пока это пример: по кнопке текст никуда не уходит. Скопируйте его и вставьте в личные сообщения группы. В полной версии мастер будет сразу видеть ваш выбор и время.</div>
     </div>
   </aside>
 </main>
 
 <div class="dock" id="dock">
   <div class="total"><b id="dock-sum">0 ₽</b><span id="dock-hint">выберите услуги</span></div>
-  <button class="cta" id="dock-go" disabled>Заявка</button>
+  <button class="cta" id="dock-go" disabled>Мастеру</button>
 </div>
 
 <footer class="foot">Демо-концепт. Цены из группы ВКонтакте на 12.10.2026. Мастера и свободное время условные.</footer>
@@ -272,6 +273,7 @@
     $("hint").textContent = hint;
     $("dock-hint").textContent = hint;
     $("go").disabled = chosen.length === 0;
+    $("save").disabled = chosen.length === 0;
     $("dock-go").disabled = chosen.length === 0;
     $("msg").classList.remove("show");
     $("copy").style.display = "none";
@@ -319,9 +321,25 @@
       try { ok = document.execCommand("copy"); } catch (err) {}
       ta.remove();
     }
-    toast(ok ? "Заявка скопирована" : "Не получилось скопировать, выделите текст вручную");
+    toast(ok ? "Текст скопирован. Вставьте его в личные сообщения группы" : "Не получилось скопировать, выделите текст вручную");
   });
 
+  const KEY = "good-master-vizit-choice";
+  function loadChoice() {
+    try {
+      JSON.parse(localStorage.getItem(KEY) || "[]").forEach(id => selected.add(id));
+    } catch (e) {}
+  }
+  $("save").addEventListener("click", () => {
+    try {
+      localStorage.setItem(KEY, JSON.stringify([...selected]));
+      toast("Выбор сохранён. Он останется, если вернуться на эту страницу");
+    } catch (e) {
+      toast("Не получилось сохранить в этом браузере");
+    }
+  });
+
+  loadChoice();
   renderAll();
 </script>
 </body>
